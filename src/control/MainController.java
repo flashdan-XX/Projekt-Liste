@@ -10,7 +10,7 @@ public class MainController {
 
     private List<File>[] allShelves;    //Ein Array, das Objekte der Klasse Liste verwaltet, die wiederum Objekte der Klasse File verwalten.
 
-    public MainController(){
+    public MainController() {
         allShelves = new List[2];
         allShelves[0] = new List<File>(); //Beachtet die unterschiedliche Instanziierung! Was bedeutet das?
         allShelves[1] = new List<>();
@@ -19,13 +19,28 @@ public class MainController {
 
     /**
      * Die Akten eines Regals werden vollständig ausgelesen.
+     *
      * @param index Regalnummer
      * @return String-Array mit den Familiennamen
      */
-    public String[] showShelfContent(int index){
+    public String[] showShelfContent(int index) {
         List<File> list = allShelves[index];
         //TODO 03: Ausgabe der Inhalte
-        return new String[]{"Platzhalter00", "Platzhalter01", "Platzhalter02"};
+        int lenght = 0;
+        list.toFirst();
+        while(list.hasAccess()){
+            lenght++;
+            list.next();
+        }
+        String[] content = new String[lenght];
+        int i = 0;
+        while(list.hasAccess()){
+            content[i] = list.getContent().getName();
+            list.next();
+            i = i+1;
+        }
+            return content;
+
     }
 
     /**
@@ -58,6 +73,12 @@ public class MainController {
      */
     public boolean appendANewFile(int index, String name, String phoneNumber){
         //TODO 02: Hinzufügen einer neuen Akte am Ende der Liste.
+        if(name!= null && phoneNumber!=null){
+        File Akte = new File(name,phoneNumber);
+            allShelves[index].insert(Akte);
+            return true;
+        }
+
         return false;
     }
 
